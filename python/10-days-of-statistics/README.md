@@ -10,3 +10,7 @@ This repository includes all of my scripts for the [Hacker Rank 10 Days of Stati
 * [Interquartile Range](https://www.hackerrank.com/challenges/s10-interquartile-range)
 * [Standard Deviation](https://www.hackerrank.com/challenges/s10-standard-deviation)
 
+# Day 2
+* [Basic Probabilities](https://www.hackerrank.com/challenges/s10-mcq-1)
+* [More Dice](https://www.hackerrank.com/challenges/s10-mcq-2)
+* [Compound Event Probability](https://www.hackerrank.com/challenges/s10-mcq-3)

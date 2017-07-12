@@ -11,6 +11,7 @@ This repository includes all of my scripts for the [Hacker Rank 10 Days of Stati
 * [Standard Deviation](https://www.hackerrank.com/challenges/s10-standard-deviation)
 
 # Day 2
+This day's challenges were all calculating probabilities to understand the rules of probability, but did not include explicit coding challenges.
 * [Basic Probabilities](https://www.hackerrank.com/challenges/s10-mcq-1)
 * [More Dice](https://www.hackerrank.com/challenges/s10-mcq-2)
 * [Compound Event Probability](https://www.hackerrank.com/challenges/s10-mcq-3)

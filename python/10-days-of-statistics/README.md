@@ -15,3 +15,9 @@ This day's challenges were all calculating probabilities to understand the rules
 * [Basic Probabilities](https://www.hackerrank.com/challenges/s10-mcq-1)
 * [More Dice](https://www.hackerrank.com/challenges/s10-mcq-2)
 * [Compound Event Probability](https://www.hackerrank.com/challenges/s10-mcq-3)
+
+# Day 3
+This day's challenges were also like Day 2's, with no explicit coding challenges.
+* [Conditional Probability](https://www.hackerrank.com/challenges/s10-mcq-4)
+* [Cards of the Same Suit](https://www.hackerrank.com/challenges/s10-mcq-5)
+* [Drawing Marbles](https://www.hackerrank.com/challenges/s10-mcq-6)

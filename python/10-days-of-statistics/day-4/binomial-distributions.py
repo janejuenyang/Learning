@@ -7,6 +7,12 @@ def factorial(x):
         ans *= i
     return ans
     
+def combination(x, n):
+    """
+    Returns the number of combinations of x values given n options.
+    """
+    return factorial(n)/(factorial(x)*factorial(n-x))
+    
 def binomial(x, n, p):
     """
     Returns the probability of certain outcomes calculated from the binomial distribution for the given arguments:
@@ -14,7 +20,7 @@ def binomial(x, n, p):
     n = the total number of trials
     p = the probability of success of one trial
     """
-    return factorial(n)/(factorial(x)*factorial(n-x))*(p**x)*((1-p)**(n-x))    
+    return combination(x, n)*(p**x)*((1-p)**(n-x))    
     
 def cum_binomial(x, n, p, direction):
     """

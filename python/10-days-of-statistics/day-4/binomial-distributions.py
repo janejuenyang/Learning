@@ -37,6 +37,7 @@ def cum_binomial(x, n, p, direction):
     if direction == "at least":
         for i in range(x, n+1):
             ans += binomial(i, n, p)
+    # if direction is "at most"
     elif direction == "at most":
         for i in range(0, x+1):
             ans += binomial(i, n, p)

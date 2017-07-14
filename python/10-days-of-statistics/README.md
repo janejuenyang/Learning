@@ -21,3 +21,9 @@ This day's challenges were also like Day 2's, with no explicit coding challenges
 * [Conditional Probability](https://www.hackerrank.com/challenges/s10-mcq-4)
 * [Cards of the Same Suit](https://www.hackerrank.com/challenges/s10-mcq-5)
 * [Drawing Marbles](https://www.hackerrank.com/challenges/s10-mcq-6)
+
+# Day 4
+* [Binomial Distribution #1](https://www.hackerrank.com/challenges/s10-binomial-distribution-1)
+* [Binomial Distribution #2](https://www.hackerrank.com/challenges/s10-binomial-distribution-2)
+* [Geometric Distribution #1](https://www.hackerrank.com/challenges/s10-geometric-distribution-1)
+* [Geometric Distribution #2](https://www.hackerrank.com/challenges/s10-geometric-distribution-2)

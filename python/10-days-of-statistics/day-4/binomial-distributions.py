@@ -1,7 +1,4 @@
-#### binomial distribution, exercise #1 ####
-# if the ratio of boys to girls for babies born in Russia is 1.09:1 and there is one child born per birth,
-# what proportion of Russian families with exactly 6 children will have at least 3 boys?
-
+#### binomial distribution, exercises #1 and #2 ####
 # define functions
 def factorial(x):
     """Calculates the factorial of the argument (an integer)"""
@@ -35,16 +32,30 @@ def cum_binomial(x, n, p, direction):
         for i in range(x, n+1):
             ans += binomial(i, n, p)
     elif direction == "at most":
-        for i in range(1, x+1):
+        for i in range(0, x+1):
             ans += binomial(i, n, p)
     else:
         print("Please indicate a direction of 'at least' or 'at most'.")
     return ans
 
-# calculate answer to question
+## Question #1
+# if the ratio of boys to girls for babies born in Russia is 1.09:1 and there is one child born per birth,
+# what proportion of Russian families with exactly 6 children will have at least 3 boys?
 x = 3 # three boys
 n = 6 # six children
 p = 1.09/(1+1.09) # proportion of boys in Russia
 direction = "at least"
 
 print(round(cum_binomial(x, n, p, direction), 3))
+
+## Question #2
+# A manufacturer of metal pistons finds that, on average, 12% of the pistons they manufacture are rejected because they are 
+# incorrectly sized. What is the probability that a batch of 10 pistons will contain:
+# 1) at most 2 rejects?
+# 2) at least 2 rejects?
+x = 2 # number of rejects
+n = 10 # number of engines in batch
+p = 0.12 # proportion of rejects in engine batch
+
+print(round(cum_binomial(x, n, p, direction = "at most"), 3))
+print(round(cum_binomial(x, n, p, direction = "at least"), 3))

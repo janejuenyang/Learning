@@ -1,4 +1,5 @@
 -- Table definitions for the tournament project.
+-- Last edited: oct 16, 2017
 
 -- check if database 'tournament' already exists; if so, delete and create an (empty) database
 DROP DATABASE IF EXISTS tournament;

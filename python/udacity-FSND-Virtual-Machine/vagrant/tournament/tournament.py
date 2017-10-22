@@ -37,7 +37,8 @@ def countPlayers():
     ans = c.fetchall()
     conn.commit()
     conn.close()
-    print(ans)
+    # c.execute returns a tuple in a tuple, so we need to index in
+    return(int(ans[0][0]))
 
 def registerPlayer(name):
     """Adds a player to the tournament database.

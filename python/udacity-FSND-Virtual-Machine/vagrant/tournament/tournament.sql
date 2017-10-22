@@ -1,5 +1,5 @@
 -- Table definitions for the tournament project.
--- Last edited: oct 16, 2017
+-- Last edited: oct 22, 2017
 
 -- check if database 'tournament' already exists; if so, delete and create an (empty) database
 DROP DATABASE IF EXISTS tournament;
@@ -13,8 +13,8 @@ CREATE TABLE players
 (
     player_id serial primary key
   , name varchar(100) -- assumes names are <100 characters long...
-  , wins -- +1 for each win
-  , matches -- +1 for each match they compete in
+  , wins integer -- +1 for each win
+  , matches integer -- +1 for each match they compete in
 )
 ;
 
@@ -26,12 +26,12 @@ CREATE TABLE matches
     match_id serial primary key
   , round integer
   , player_1 integer references players(player_id)
-  , player_2 integer references players(player_id) check player_2 <> player_1
-  , winner integer check (
-         winner = player_1
-      or winner = player_2
-      or winner is NULL -- only until match is over; maybe drop?
-    )
+  , player_2 integer references players(player_id)
+  , winner integer
+  -- add constraint to make sure matches have legal pairings
+  , CONSTRAINT valid_pairing CHECK (player_2 <> player_1)
+  -- add constraint to make sure the winner is one of the two players in match
+  , CONSTRAINT valid_winner CHECK (winner = player_1 OR winner = player_2)
 )
 ;
 

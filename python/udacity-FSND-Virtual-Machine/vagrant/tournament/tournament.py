@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 # tournament.py -- implementation of a Swiss-system tournament
-# Last edited: oct 16, 2017
+# Last edited: oct 22, 2017
 
 import psycopg2
 
@@ -33,9 +33,11 @@ def countPlayers():
     """Returns the number of players currently registered."""
     conn = connect()
     c = conn.cursor()
-    c.execute("count(id) FROM players;")
+    c.execute("SELECT count(player_id) FROM players;")
+    ans = c.fetchall()
     conn.commit()
     conn.close()
+    print(ans)
 
 def registerPlayer(name):
     """Adds a player to the tournament database.

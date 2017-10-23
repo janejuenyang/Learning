@@ -37,7 +37,7 @@ def countPlayers():
     ans = c.fetchall()
     conn.commit()
     conn.close()
-    # c.execute returns a tuple in a tuple, so we need to index in
+    # c.execute returns a list in a list, so we need to index in
     return(int(ans[0][0]))
 
 def registerPlayer(name):
@@ -51,7 +51,8 @@ def registerPlayer(name):
     """
     conn = connect()
     c = conn.cursor()
-    c.execute("INSERT INTO players (name) VALUES ('" + name + "');")
+    # when registering new players, their matches and wins should equal 0
+    c.execute("INSERT INTO players (name, wins, matches) VALUES ('" + name + "', 0, 0);")
     conn.commit()
     conn.close()
 
@@ -69,6 +70,14 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    conn = connect()
+    c = conn.cursor()
+    c.execute("SELECT player_id, name, wins, matches FROM players ORDER BY wins;")
+    # c.execute returns a list, so we need to convert into a tuple
+    ans = tuple(c.fetchall())
+    conn.commit()
+    conn.close()
+    return(ans)
 
 
 def reportMatch(winner, loser):

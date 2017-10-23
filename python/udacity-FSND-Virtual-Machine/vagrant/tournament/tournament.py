@@ -4,7 +4,7 @@
 # Last edited: oct 22, 2017
 
 import psycopg2
-
+import bleach
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
@@ -52,7 +52,8 @@ def registerPlayer(name):
     conn = connect()
     c = conn.cursor()
     # when registering new players, their matches and wins should equal 0
-    c.execute("INSERT INTO players (name, wins, matches) VALUES ('" + name + "', 0, 0);")
+    c.execute("INSERT INTO players (name, wins, matches) VALUES (%s, 0, 0);",
+        (name, ))
     conn.commit()
     conn.close()
 
@@ -87,7 +88,18 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+    # strip entries of any html coding
+    winner = bleach.clean(winner)
+    loser = bleach.clean(loser)
 
+    # insert winners and losers into matches table, using tuple and
+    # query parameters to avoid issues with special characters
+    conn = connect()
+    c = conn.cursor()
+    c.execute("INSERT INTO matches (winner, loser) VALUES (%s, %s);",
+        (winner, loser))
+    conn.commit()
+    conn.close()
 
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.

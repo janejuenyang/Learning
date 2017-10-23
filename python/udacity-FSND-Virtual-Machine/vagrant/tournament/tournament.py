@@ -46,7 +46,7 @@ def countPlayers():
 def registerPlayer(name):
     """Adds a player to the tournament database.
 
-    The database assigns a unique serial id number for the player.  (This
+    The database assigns a unique serial id number for the player. (This
     should be handled by your SQL database schema, not in your Python code.)
 
     Args:
@@ -80,7 +80,12 @@ def playerStandings():
     """
     conn = connect()
     c = conn.cursor()
-    c.execute("SELECT player_id, name, wins, matches FROM players ORDER BY wins;")
+    # use triple quotes to allow a multi-line query
+    c.execute("""
+        SELECT player_id, name, wins, matches
+        FROM players
+        ORDER BY wins;
+        """)
     # c.execute returns a list, so we need to convert into a tuple
     ans = tuple(c.fetchall())
     conn.commit()
@@ -109,10 +114,16 @@ def reportMatch(winner, loser):
 
     # update players table to increment the number of wins and matches
     # for the involved players
-    c.execute("UPDATE players SET wins = wins + 1, matches = matches + 1 WHERE player_id = %s;",
-        (winner, ))
-    c.execute("UPDATE players SET matches = matches + 1 WHERE player_id = %s;",
-        (loser, ))
+    c.execute("""
+        UPDATE players
+        SET wins = wins + 1, matches = matches + 1
+        WHERE player_id = %s;
+        """, (winner, ))
+    c.execute("""
+        UPDATE players
+        SET matches = matches + 1
+        WHERE player_id = %s;
+        """, (loser, ))
 
     conn.commit()
     conn.close()
@@ -132,3 +143,20 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    conn = connect()
+    c = conn.cursor()
+    c.execute("""
+        SELECT
+              p1.player_id as id1
+            , p1.name as name1
+            , p2.player_id as id2
+            , p2.name as name2
+        -- use self-join to create the side-by-side player format we want
+        FROM rankedPlayers as p1, rankedPlayers as p2
+        -- use clever filtering to get rid of duplicative rows from self-join
+        WHERE p1.match_pair = p2.match_pair AND p1.player_id < p2.player_id;
+        """)
+    ans = c.fetchall()
+    conn.commit()
+    conn.close()
+    return(ans)

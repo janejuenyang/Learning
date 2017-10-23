@@ -32,3 +32,22 @@ CREATE TABLE matches
   , CONSTRAINT valid_pairing CHECK (winner <> loser)
 )
 ;
+
+-- create a view of just player_ids and names, ranked by wins
+-- and with a match_pair column that assigns adjacent players together
+-- in descending order of wins.
+-- this table will help make the match pairing query easier
+CREATE VIEW rankedPlayers AS
+    SELECT
+        player_id
+      , name
+      , NULL as match_pair
+    FROM players
+    ORDER BY wins
+;
+-- use cross join to create the match_pair sequence
+-- TO FIX: need to figure out how to append a column to existing VIEW
+, (SELECT i.n
+  FROM generate_series(1, (SELECT count(player_id)/2 FROM players)) as i(n),
+    generate_series(1, 2))
+  as match_pair

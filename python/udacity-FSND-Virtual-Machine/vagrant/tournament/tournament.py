@@ -49,6 +49,10 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
+    # sanitize name
+    name = bleach.clean(name)
+    
+    # insert name into table
     conn = connect()
     c = conn.cursor()
     # when registering new players, their matches and wins should equal 0

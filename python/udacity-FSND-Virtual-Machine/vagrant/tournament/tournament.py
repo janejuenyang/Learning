@@ -15,7 +15,10 @@ def deleteMatches():
     """Remove all the match records from the database."""
     conn = connect()
     c = conn.cursor()
+    # clear out matches table
     c.execute("DELETE FROM matches;")
+    # update players table to reflect cleared matches
+    c.execute("UPDATE players SET wins = 0, matches = 0;")
     conn.commit()
     conn.close()
 
@@ -51,7 +54,7 @@ def registerPlayer(name):
     """
     # sanitize name
     name = bleach.clean(name)
-    
+
     # insert name into table
     conn = connect()
     c = conn.cursor()
@@ -96,12 +99,21 @@ def reportMatch(winner, loser):
     winner = bleach.clean(winner)
     loser = bleach.clean(loser)
 
-    # insert winners and losers into matches table, using tuple and
-    # query parameters to avoid issues with special characters
     conn = connect()
     c = conn.cursor()
+
+    # insert winners and losers into matches table, using tuple and
+    # query parameters to avoid issues with special characters
     c.execute("INSERT INTO matches (winner, loser) VALUES (%s, %s);",
         (winner, loser))
+
+    # update players table to increment the number of wins and matches
+    # for the involved players
+    c.execute("UPDATE players SET wins = wins + 1, matches = matches + 1 WHERE player_id = %s;",
+        (winner, ))
+    c.execute("UPDATE players SET matches = matches + 1 WHERE player_id = %s;",
+        (loser, ))
+
     conn.commit()
     conn.close()
 

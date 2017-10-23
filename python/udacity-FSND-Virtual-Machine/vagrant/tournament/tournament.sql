@@ -26,32 +26,9 @@ CREATE TABLE players
 CREATE TABLE matches
 (
     match_id serial primary key
-  --, round integer
-  --, player_1 integer references players(player_id)
-  --, player_2 integer references players(player_id)
   , winner integer
   , loser integer
   -- add constraint to make sure matches have legal pairings
-  --, CONSTRAINT valid_pairing CHECK (player_2 <> player_1)
-  -- add constraint to make sure the winner is one of the two players in match
-  --, CONSTRAINT valid_winner CHECK (winner = player_1 OR winner = player_2)
+  , CONSTRAINT valid_pairing CHECK (winner <> loser)
 )
 ;
-
-/*
--- create a flat table that makes it easy to return a list of players
--- and their tournament record
-CREATE VIEW scoreboard AS
-  SELECT
-      player_id
-    , name
-    -- calculate number of wins per player
-    , count(*) FILTER (WHERE winner = player_id) AS wins
-    -- calculate number of matches played per player
-    , count(player_1) FILTER (WHERE player_1 = player_id) +
-      count(player_2) FILTER (WHERE player_1 = player_id)
-        AS matches
-  FROM players INNER JOIN matches ON matches.winner = players.player_id
-  ORDER BY wins DESC
-;
-*/

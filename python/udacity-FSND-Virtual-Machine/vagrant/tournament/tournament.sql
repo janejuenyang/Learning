@@ -26,14 +26,15 @@ CREATE TABLE players
 CREATE TABLE matches
 (
     match_id serial primary key
-  , round integer
-  , player_1 integer references players(player_id)
-  , player_2 integer references players(player_id)
+  --, round integer
+  --, player_1 integer references players(player_id)
+  --, player_2 integer references players(player_id)
   , winner integer
+  , loser integer
   -- add constraint to make sure matches have legal pairings
-  , CONSTRAINT valid_pairing CHECK (player_2 <> player_1)
+  --, CONSTRAINT valid_pairing CHECK (player_2 <> player_1)
   -- add constraint to make sure the winner is one of the two players in match
-  , CONSTRAINT valid_winner CHECK (winner = player_1 OR winner = player_2)
+  --, CONSTRAINT valid_winner CHECK (winner = player_1 OR winner = player_2)
 )
 ;
 

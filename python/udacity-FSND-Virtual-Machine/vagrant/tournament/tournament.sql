@@ -13,8 +13,10 @@ CREATE TABLE players
 (
     player_id serial primary key
   , name varchar(100) -- assumes names are <100 characters long...
-  , wins integer -- +1 for each win
-  , matches integer -- +1 for each match they compete in
+  -- prepare columns to store standings information
+  -- set defaults to 0 so that newly registered players start off correctly
+  , wins integer DEFAULT 0 -- +1 for each win
+  , matches integer DEFAULT 0 -- +1 for each match they compete in
 )
 ;
 

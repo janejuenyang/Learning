@@ -1,5 +1,5 @@
 -- Table definitions for the tournament project.
--- Last edited: oct 22, 2017
+-- Last edited: nov 18, 2017
 
 -- check if database 'tournament' already exists; if so, delete and create an (empty) database
 DROP DATABASE IF EXISTS tournament;
@@ -41,13 +41,8 @@ CREATE VIEW rankedPlayers AS
     SELECT
         player_id
       , name
-      , NULL as match_pair
+      -- take advantage of rounding up to create 1, 1, 2, 2, etc series
+      , CEILING(1.0 * ROW_NUMBER() OVER (ORDER BY wins) / 2) as match_pair
     FROM players
     ORDER BY wins
 ;
--- use cross join to create the match_pair sequence
--- TO FIX: need to figure out how to append a column to existing VIEW
-, (SELECT i.n
-  FROM generate_series(1, (SELECT count(player_id)/2 FROM players)) as i(n),
-    generate_series(1, 2))
-  as match_pair

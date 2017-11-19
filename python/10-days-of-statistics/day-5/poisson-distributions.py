@@ -23,5 +23,5 @@ l = float(input())
 # convert second line to integer
 k = int(input())
 
-## calculate and print interquartile range for expanded data
+## calculate and print answer
 print(round(float(poisson(l, k)), 3))
